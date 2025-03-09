@@ -139,6 +139,7 @@ calibrate_deviations_efourier(shapenorm2_99)
 efashape_99 <- efourier(shapenorm2_99, nb.h = 15, smooth.it = 0, norm = TRUE)
 
 
+
 #visual examination of harmonics 
 
 coo_plot(shapenorm2_99[412], col = "transparent", centroid = TRUE,)
@@ -188,7 +189,7 @@ harmonics +
                                 "40 harmonics" = "blue")) +
   labs(color = "Number of Harmonics")
 
-png(filename = "Figure3.png", width = 2400, height = 2400, res=300)
+png(filename = "Figure4.png", width = 2400, height = 2400, res=300)
 plot(harmonics + 
        geom_path(data = CA230378_15_xy, aes(x = x, y = y, color = "15 harmonics")) +
        geom_path(data = CA230378_20_xy, aes(x = x, y = y, color = "20 harmonics")) +
@@ -202,6 +203,7 @@ plot(harmonics +
                                      "40 harmonics" = "blue")) +
        labs(color = "Number of Harmonics"))
 dev.off()
+
 
 
 #We will also run the analysis considering 30 harmonics.
