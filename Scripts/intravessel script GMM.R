@@ -24,18 +24,13 @@ library(tidyr)
 
 # ------------------- Single cross sections (for illustration) -----------------
 
-single_tpsdata <- Momocs::import_tps("single_cross_section.TPS")
-single_database <- rio::import("single_cross_section.csv")
+single_tpsdata <- Momocs::import_tps("./Scripts/single_cross_section.TPS")
+single_database <- rio::import("./Scripts/single_cross_section.csv")
 
 ## **Data Cleaning - single cross-section**  
 
-head(single_database)
 single_database$Vessel <- as.factor(single_database$Vessel)
-is.factor(single_database$Vessel)
 single_database$ware <- as.factor(single_database$ware)
-is.factor(single_database$ware)
-summary(single_database$Vessel)
-summary(single_database$ware)
 
 single_database$Vessel <- with(single_database, reorder(Vessel, as.numeric(ware)))
 
@@ -52,13 +47,8 @@ single_shape <- Out(single_tpsdata$coo, fac = single_database)
 single_database$ware <- factor(single_database$ware, levels = c("Capulí", "Tuza", 
                                                                 "Tuza - Red slip", "Piartal - 1", "Piartal - 2"))
 
-panel_single <- panel(single_shape, fac = single_database$ware, 
-                      cex.names = 0.6,
-                      palette = pal_manual(c("#1B9E77", "#D95F02", "#E7298A",
-                                             "#E6AB02", "#8D62C1")), 
-                      main = "Vessels under study")  
 
-png(filename = "Figure1a.png", width = 4800, height = 3200, res=300)
+png(filename = "./Figures/Figure1a.png", width = 4800, height = 3200, res=300)
 panel_single <- panel(single_shape, fac = single_database$ware, 
                       cex.names = 0.6,
                       palette = pal_manual(c("#1B9E77", "#D95F02", "#E7298A",
@@ -72,27 +62,17 @@ dev.off()
 
 ## **Importing the GMM Data into R**
 
-tpsdata <- Momocs::import_tps("intravessel30.TPS")
-database <- rio::import("intravessel30_db.csv")
+tpsdata <- Momocs::import_tps("./Scripts/intravessel30.TPS")
+database <- rio::import("./Scripts/intravessel30_db.csv")
 
 ## **Data Cleaning - intravessel**  
 
-head(database)
 
 database$Vessel <- as.factor(database$Vessel)
-is.factor(database$Vessel)
-
 database$ware <- as.factor(database$ware)
-is.factor(database$ware)
 
 database$`percent_complete` <- as.numeric(database$`percent_complete`)
-is.numeric(database$`percent_complete`)
 
-summary(database$Vessel)
-
-summary(database$ware)
-
-summary(database$percent_complete)
 
 
 # ----------------------Creation of the "Out" object----------------------------  
@@ -108,7 +88,6 @@ table(names(tpsdata$coo)==database$ID)
 over_99 <- database[database$`percent_complete`> 0.99,]
 over_99_tps <- subset(tpsdata$coo, database$`percent_complete`> 0.99,)
 
-summary(over_99$Vessel)
 
 shape_99 <- Out(over_99_tps, fac = over_99)
 
@@ -189,7 +168,7 @@ harmonics +
                                 "40 harmonics" = "blue")) +
   labs(color = "Number of Harmonics")
 
-png(filename = "Figure4.png", width = 2400, height = 2400, res=300)
+png(filename = "./Figures/Figure4.png", width = 2400, height = 2400, res=300)
 plot(harmonics + 
        geom_path(data = CA230378_15_xy, aes(x = x, y = y, color = "15 harmonics")) +
        geom_path(data = CA230378_20_xy, aes(x = x, y = y, color = "20 harmonics")) +
@@ -212,16 +191,14 @@ efashape_99_30 <- efourier(shapenorm2_99, nb.h = 30, smooth.it = 0, norm = TRUE)
 
 #figures
 
-calibrate_harmonicpower_efourier(shapenorm2_99, nb.h = 9, plot = TRUE)
-
-png(filename = "Figure3a.png", width = 1600, height = 1600, res=300)
+png(filename = "./Figures/Figure3a.png", width = 1600, height = 1600, res=300)
 calibrate_harmonicpower_efourier(shapenorm2_99, nb.h = 9, plot = TRUE)
 dev.off()
 
-calibrate_reconstructions_efourier(shapenorm2_99, range = 1:30)
+set.seed(121)
 
-png(filename = "Figure3b.png", width = 2400, height = 1600, res=300)
-calibrate_reconstructions_efourier(shapenorm2_99, range = 1:30)
+png(filename = "./Figures/Figure3b.png", width = 2400, height = 1600, res=300)
+calibrate_reconstructions_efourier(shapenorm2_99, 408, range = 1:30)
 dev.off()
 
 # ---------------------Principal Component Analysis-----------------------------  
@@ -311,30 +288,19 @@ dev.off()
 
 #examine differences in PC contributions by vessel or ware
 
-boxplot_99 <- boxplot(pcashape_99_30, over_99$Vessel, nax = 1:7)
+boxplot_99 <- boxplot(pcashape_99_30, over_99$ware, nax = 1:7)
 boxplot_99 + scale_fill_brewer(palette = "Dark2") + 
   ggtitle("PC contribution sections which are > 99% complete")
 
-
-
-#Export the EFA as txt
-
-file.create('over_99_EFA_30.txt')
-Momocs::export(efashape_99_30, 'over_99_EFA_30.txt')
-
-
+ 
 # -------------------------------Assess EFA variance ---------------------------
 
 
-EFA <- import('over_99_EFA_30.txt')
+EFA <- import('./Scripts/over_99_EFA_30.txt')
 
-head(EFA)
 EFA$Vessel <- as.factor(EFA$Vessel)
-is.factor(EFA$Vessel)
 EFA$ware <- as.factor(EFA$ware)
-is.factor(EFA$ware)
 EFA <- as.data.frame(EFA)
-is.data.frame(EFA)
 
 EFA_dist <- EFA %>%
   select(-name, -ID, -Vessel, -ware, -collection, -percent_complete)
@@ -344,7 +310,6 @@ EFA_dist <- EFA %>%
 d_EFA <- dist(EFA_dist, method = "euclidean")
 dist_EFA_c <- betadisper(d_EFA, EFA$Vessel, type = c("centroid"))
 
-dist_EFA_c
 
 anova(dist_EFA_c)
 plot(dist_EFA_c, ellipse = TRUE, hull = FALSE, conf = 0.90, label = FALSE) 
@@ -372,7 +337,7 @@ if(nrow(EFA) == length(distances_EFA)) {
 
 EFA$Vessel <- with(EFA, reorder(Vessel, as.numeric(ware)))
 
-write.csv(EFA, "EFA_output.csv", row.names = FALSE)
+write.csv(EFA, "./Scripts/EFA_output.csv", row.names = FALSE)
 
 
 # Plotting distances
@@ -397,10 +362,8 @@ boxplot_EFA_30 <- ggplot(EFA, aes(x = Vessel, y = Distance, fill = ware)) +
     "Piartal - 2" = "#8D62C1"
   ))
 
-plot(boxplot_EFA_30)
 
-
-png(filename = "Figure6.png", width = 2400, height = 1600, res=300)
+png(filename = "./Figures/Figure6.png", width = 2400, height = 1600, res=300)
 plot(boxplot_EFA_30)
 dev.off()
 
@@ -411,7 +374,7 @@ dev.off()
 # First we will subsample the database to only include cross-sections from specific vessels 
 # Selected the following vessels based on their average group distance to the centroid
 # values: CA230335 (lowest value), CA230365 (highest value), CA230377 (median Capuli value), 
-# CA230417 (median Piartal - 1 value), CA230347 (median Pairtal - 2 value), 
+# CA230417 (median Piartal - 1 value), CA230347 (median Piartal - 2 value), 
 # and CA230715 (median Tuza value)
 
 CA230335 <- database[database$`Vessel`== 'CA230335',]
@@ -514,45 +477,47 @@ PC_Cont_CA230347 <- PCcontrib(pcashape_CA230347, nax = 1:3,
 PC_Cont_CA230715 <- PCcontrib(pcashape_CA230715, nax = 1:3, 
                               sd.r = c(-1, -0.5, 0, 0.5, 1))
 
-png(filename = "Figure7f.png", width = 2400, height = 1600, res=300)
-plot_PCA(pcashape_CA230335, axes = c(1,2), CA230335$Vessel, palette = pal_manual(c("#D95F02")), 
-         morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
-         title = "CA230335") %>% 
-  layer_points(cex = 0.5)
-dev.off()
 
-png(filename = "Figure7a.png", width = 2400, height = 1600, res=300)
+
+png(filename = "./Figures/Figure7a.png", width = 2400, height = 1600, res=300)
 plot_PCA(pcashape_CA230365, axes = c(1,2), CA230365$Vessel, palette = pal_manual(c("#1B9E77")), 
          morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
          title = "CA230365") %>% 
   layer_points(cex = 0.5)
 dev.off()
 
-png(filename = "Figure7b.png", width = 2400, height = 1600, res=300)
+png(filename = "./Figures/Figure7b.png", width = 2400, height = 1600, res=300)
 plot_PCA(pcashape_CA230377, axes = c(1,2), CA230377$Vessel, palette = pal_manual(c("#1B9E77")), 
          morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
          title = "CA230377") %>% 
   layer_points(cex = 0.5)
 dev.off()
 
-png(filename = "Figure7c.png", width = 2400, height = 1600, res=300)
+png(filename = "./Figures/Figure7c.png", width = 2400, height = 1600, res=300)
 plot_PCA(pcashape_CA230417, axes = c(1,2), CA230417$Vessel, palette = pal_manual(c("#E6AB02")), 
          morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
          title = "CA230417") %>% 
   layer_points(cex = 0.5)
 dev.off()
 
-png(filename = "Figure7d.png", width = 2400, height = 1600, res=300)
+png(filename = "./Figures/Figure7d.png", width = 2400, height = 1600, res=300)
 plot_PCA(pcashape_CA230347, axes = c(1,2), CA230347$Vessel, palette = pal_manual(c("#8D62C1")), 
          morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
          title = "CA230347") %>% 
   layer_points(cex = 0.5)
 dev.off()
 
-png(filename = "Figure7e.png", width = 2400, height = 1600, res=300)
+png(filename = "./Figures/Figure7e.png", width = 2400, height = 1600, res=300)
 plot_PCA(pcashape_CA230715, axes = c(1,2), CA230715$Vessel, palette = pal_manual(c("#D95f02")), 
          morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
          title = "CA230715") %>% 
+  layer_points(cex = 0.5)
+dev.off()
+
+png(filename = "./Figures/Figure7f.png", width = 2400, height = 1600, res=300)
+plot_PCA(pcashape_CA230335, axes = c(1,2), CA230335$Vessel, palette = pal_manual(c("#D95F02")), 
+         morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
+         title = "CA230335") %>% 
   layer_points(cex = 0.5)
 dev.off()
 
