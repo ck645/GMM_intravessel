@@ -27,8 +27,8 @@ library(car)
 # Assessing metric measurements - horizontal wall thickness boxplot 
 # Need to select 200 measurements
 
-horizontal_wall_thickness <- read.csv("horizontal_wall_thickness.csv",
-                                      na.strings="",header = FALSE, check.names = FALSE)
+horizontal_wall_thickness <- read.csv("./Scripts/horizontal_wall_thickness.csv",
+                                      na.strings="",header = TRUE)
 
 
 horizontal_lists <- list()
@@ -36,13 +36,26 @@ horizontal_selected <- list()
 
 for (i in 1:ncol(horizontal_wall_thickness)) {
   
-  horizontal_lists[[i]] <- horizontal_wall_thickness[,i]
-  horizontal_lists[[i]] <- horizontal_lists[[i]][!is.na(horizontal_lists[[i]])]
+  horizontal_lists[[i]] <- horizontal_wall_thickness[, i]
   
-  horizontal_selected[[i]] <- horizontal_lists[[i]][seq(from=3,to=length(horizontal_lists[[i]]), length.out=200)]
-  horizontal_selected[[i]] <- cbind(horizontal_selected[[i]], horizontal_wall_thickness[1,i], horizontal_wall_thickness[2,i])
+  #exclude NA observations
+  horizontal_lists[[i]] <-
+    horizontal_lists[[i]][!is.na(horizontal_lists[[i]])]
+  
+  #select 200 observations
+  horizontal_selected[[i]] <-
+    horizontal_lists[[i]][seq(
+      from = 2,
+      to = length(horizontal_lists[[i]]),
+      length.out = 200
+    )]
+  horizontal_selected[[i]] <-
+    cbind(horizontal_selected[[i]],
+          names(horizontal_wall_thickness)[i],
+          horizontal_wall_thickness[1, i])
   
 }
+
 
 horizontal_df <- as.data.frame(do.call(rbind, horizontal_selected))
 
@@ -52,6 +65,7 @@ names(horizontal_df) <- c("Width_mm","Vessel","Ware")
 
 horizontal_df$Ware <- as.factor(horizontal_df$Ware)
 horizontal_df$Vessel <- as.factor(horizontal_df$Vessel)
+
 horizontal_df <- horizontal_df[order(horizontal_df$Ware),]
 
 # calculating average wall thickness
@@ -62,17 +76,26 @@ averages <- horizontal_df %>%
 
 averages <- as.data.frame(averages)
 
-horizontal_df$Width_mm_div <- rep(NA,times=6000)
 
-for (i in 1:length(unique(horizontal_df$Vessel))) {
+# Get unique Vessel values
+unique_vessels <- unique(horizontal_df$Vessel)
+
+# Loop through unique vessels
+for (i in seq_along(unique_vessels)) {
+  vessel_name <- unique_vessels[i]  # Extract vessel name
   
-  horizontal_df[horizontal_df$Vessel==averages[i,]$Vessel,]$Width_mm_div <- horizontal_df[horizontal_df$Vessel==averages[i,]$Vessel,]$Width_mm/averages[i,2]
+  # Find the corresponding average value
+  avg_value <- averages[averages$Vessel == vessel_name, 2]  # Assuming column 2 has the relevant average
   
+  # Update the Width_mm_div column
+  horizontal_df[horizontal_df$Vessel == vessel_name, "Width_mm_div"] <- 
+    horizontal_df[horizontal_df$Vessel == vessel_name, "Width_mm"] / avg_value
 }
 
-# ploting wall thickness
 
-boxplot_horizonatal <- ggplot(horizontal_df, aes(x = reorder(Vessel,order(Ware)), y = Width_mm, fill = Ware)) +
+# plotting wall thickness
+
+boxplot_horizontal <- ggplot(horizontal_df, aes(x = reorder(Vessel,order(Ware)), y = Width_mm, fill = Ware)) +
   geom_boxplot(
     width = .6, 
     outlier.shape = NA
@@ -94,16 +117,16 @@ boxplot_horizonatal <- ggplot(horizontal_df, aes(x = reorder(Vessel,order(Ware))
     "Piartal - 2" = "#8D62C1"
   ))
 
-boxplot_horizonatal
 
-png(filename = "Figure8a_1.png", width = 2400, height = 1600, res=300)
-plot(boxplot_horizonatal)
+
+png(filename = "./Figures/Figure8a_1.png", width = 2400, height = 1600, res=300)
+plot(boxplot_horizontal)
 dev.off()
 
 
 
 
-boxplot_horizonatal_30 <- ggplot(horizontal_df, aes(x = reorder(Vessel,order(Ware)), y = Width_mm_div, fill = Ware)) +
+boxplot_horizontal_30 <- ggplot(horizontal_df, aes(x = reorder(Vessel,order(Ware)), y = Width_mm_div, fill = Ware)) +
   geom_boxplot(
     width = .6, 
     outlier.shape = NA
@@ -126,10 +149,9 @@ boxplot_horizonatal_30 <- ggplot(horizontal_df, aes(x = reorder(Vessel,order(War
     "Piartal - 2" = "#8D62C1"
   ))
 
-boxplot_horizonatal_30
 
-png(filename = "Figure8a_3.png", width = 2400, height = 1600, res=300)
-plot(boxplot_horizonatal_30)
+png(filename = "./Figures/Figure8a_3.png", width = 2400, height = 1600, res=300)
+plot(boxplot_horizontal_30)
 dev.off()
 
 
@@ -137,7 +159,7 @@ dev.off()
 
 #vertical wall thickness boxplot
 
-vertical_wall_thickness <- read.csv("vertical_wall_thickness.csv", na.strings="",header = FALSE, check.names = FALSE)
+vertical_wall_thickness <- read.csv("./Scripts/vertical_wall_thickness.csv", na.strings="",header = TRUE)
 
 
 vertical_lists <- list()
@@ -145,13 +167,26 @@ vertical_selected <- list()
 
 for (i in 1:ncol(vertical_wall_thickness)) {
   
-  vertical_lists[[i]] <- vertical_wall_thickness[,i]
-  vertical_lists[[i]] <- vertical_lists[[i]][!is.na(vertical_lists[[i]])]
+  vertical_lists[[i]] <- vertical_wall_thickness[, i]
   
-  vertical_selected[[i]] <- vertical_lists[[i]][seq(from=3,to=length(vertical_lists[[i]]), length.out=200)]
-  vertical_selected[[i]] <- cbind(vertical_selected[[i]], vertical_wall_thickness[1,i], vertical_wall_thickness[2,i])
+  #exclude NA observations
+  vertical_lists[[i]] <-
+    vertical_lists[[i]][!is.na(vertical_lists[[i]])]
+  
+  #select 200 observations
+  vertical_selected[[i]] <-
+    vertical_lists[[i]][seq(
+      from = 2,
+      to = length(vertical_lists[[i]]),
+      length.out = 200
+    )]
+  vertical_selected[[i]] <-
+    cbind(vertical_selected[[i]],
+          names(vertical_wall_thickness)[i],
+          vertical_wall_thickness[1, i])
   
 }
+
 
 vertical_df <- as.data.frame(do.call(rbind, vertical_selected))
 
@@ -161,21 +196,33 @@ names(vertical_df) <- c("Width_mm","Vessel","Ware")
 
 vertical_df$Ware <- as.factor(vertical_df$Ware)
 vertical_df$Vessel <- as.factor(vertical_df$Vessel)
+
 vertical_df <- vertical_df[order(vertical_df$Ware),]
 
-vertical_averages <- vertical_df %>%
+# calculating average wall thickness
+
+averages <- vertical_df %>%
   group_by(Vessel) %>%
   summarise(mean_value = mean(Width_mm, na.rm = TRUE))
 
-vertical_averages <- as.data.frame(vertical_averages)
+averages <- as.data.frame(averages)
 
-vertical_df$Width_mm_div <- rep(NA,times=12000)
 
-for (i in 1:length(unique(vertical_df$Vessel))) {
+# Get unique Vessel values
+unique_vessels <- unique(vertical_df$Vessel)
+
+# Loop through unique vessels
+for (i in seq_along(unique_vessels)) {
+  vessel_name <- unique_vessels[i]  # Extract vessel name
   
-  vertical_df[vertical_df$Vessel==vertical_averages[i,]$Vessel,]$Width_mm_div <- vertical_df[vertical_df$Vessel==vertical_averages[i,]$Vessel,]$Width_mm/vertical_averages[i,2]
+  # Find the corresponding average value
+  avg_value <- averages[averages$Vessel == vessel_name, 2]  # Assuming column 2 has the relevant average
   
+  # Update the Width_mm_div column
+  vertical_df[vertical_df$Vessel == vessel_name, "Width_mm_div"] <- 
+    vertical_df[vertical_df$Vessel == vessel_name, "Width_mm"] / avg_value
 }
+
 
 #combine right and left 'arms' of the bowl together
 
@@ -209,9 +256,8 @@ boxplot_vertical_comb <- ggplot(vertical_df, aes(x = reorder(Vessel_together,
     "Piartal - 2" = "#8D62C1"
   ))
 
-boxplot_vertical_comb
 
-png(filename = "Figure8a_2.png", width = 2400, height = 1600, res=300)
+png(filename = "./Figures/Figure8a_2.png", width = 2400, height = 1600, res=300)
 plot(boxplot_vertical_comb)
 dev.off()
 
@@ -241,9 +287,8 @@ boxplot_vertical_30_comb <- ggplot(vertical_df, aes(x = reorder(Vessel_together,
     "Piartal - 2" = "#8D62C1"
   ))
 
-boxplot_vertical_30_comb
 
-png(filename = "Figure8a_4.png", width = 2400, height = 1600, res=300)
+png(filename = "./Figures/Figure8a_4.png", width = 2400, height = 1600, res=300)
 plot(boxplot_vertical_30_comb)
 dev.off()
 
@@ -251,7 +296,7 @@ dev.off()
 
 ------------------# Assessing roundness and circularity-------------------------
 
-wall_thickness <- import('wall_thickness.csv')
+wall_thickness <- import('./Scripts/wall_thickness.csv')
 
 wall_thickness <-  wall_thickness %>%
   mutate(ware = case_when(
@@ -260,8 +305,10 @@ wall_thickness <-  wall_thickness %>%
     ware == "Tuza - Red slip" ~ "Tuza",
     TRUE ~ as.character(ware)  # Keep all other values as they are
   ))
+
 wall_thickness$ware <- as.factor(wall_thickness$ware)
 wall_thickness$subware <- as.factor(wall_thickness$subware)
+
 wall_thickness$CV_horizontal_wall_thickness <- as.numeric(wall_thickness$CV_horizontal_wall_thickness)
 wall_thickness$CV_vertical_wall_thickness_mm <- as.numeric(wall_thickness$CV_vertical_wall_thickness_mm)
 
@@ -299,7 +346,7 @@ Roundness <- ggplot(wall_thickness, aes(x = ware, y = Round,
   theme_minimal()
 plot(Roundness)
 
-png(filename = "Figure8b_2.png", width = 1350, height = 1000, res=300)
+png(filename = "./Figures/Figure8b_1.png", width = 1350, height = 1000, res=300)
 plot(Roundness)
 dev.off()
 
@@ -336,7 +383,7 @@ Circ <- ggplot(wall_thickness, aes(x = ware, y = circ,
 
 plot(Circ)
 
-png(filename = "Figure8b_2.png", width = 1350, height = 1000, res=300)
+png(filename = "./Figures/Figure8b_2.png", width = 1350, height = 1000, res=300)
 plot(Circ)
 dev.off()
 
