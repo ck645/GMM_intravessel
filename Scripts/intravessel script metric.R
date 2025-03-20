@@ -294,9 +294,9 @@ dev.off()
 
 
 
-------------------# Assessing roundness and circularity-------------------------
+#------------------Assessing roundness and circularity-------------------------
 
-wall_thickness <- import('./Scripts/wall_thickness.csv')
+wall_thickness <- import("./Scripts/wall_thickness.csv")
 
 wall_thickness <-  wall_thickness %>%
   mutate(ware = case_when(
@@ -344,7 +344,6 @@ Roundness <- ggplot(wall_thickness, aes(x = ware, y = Round,
   labs(y = "Roundness") +
   coord_cartesian(xlim = c(1.2, 2.9), clip = "off") +
   theme_minimal()
-plot(Roundness)
 
 png(filename = "./Figures/Figure8b_1.png", width = 1350, height = 1000, res=300)
 plot(Roundness)
@@ -380,8 +379,6 @@ Circ <- ggplot(wall_thickness, aes(x = ware, y = circ,
   labs(y = "Circularity") +
   coord_cartesian(xlim = c(1.2, 2.9), clip = "off") + 
   theme_minimal()
-
-plot(Circ)
 
 png(filename = "./Figures/Figure8b_2.png", width = 1350, height = 1000, res=300)
 plot(Circ)
@@ -441,14 +438,14 @@ pairwise_meanhwall <- pairwise.t.test(wall_thickness$mean_horizontal_wall_thickn
 pairwise_CVvwall <- pairwise.t.test(wall_thickness$CV_vertical_wall_thickness_mm, wall_thickness$ware, p.adjust.method = "bonferroni")
 pairwise_CVhwall <- pairwise.t.test(wall_thickness$CV_horizontal_wall_thickness, wall_thickness$ware, p.adjust.method = "bonferroni")
 
-pairwise_distance
-pairwise_height
-pairwise_circ
-pairwise_round
-pairwise_meanvwall
-pairwise_meanhwall
-pairwise_CVvwall
-pairwise_CVhwall
+# pairwise_distance
+# pairwise_height
+# pairwise_circ
+# pairwise_round
+# pairwise_meanvwall
+# pairwise_meanhwall
+# pairwise_CVvwall
+# pairwise_CVhwall
 
 # Function to perform permutation test for variance
 pairwise_permutation_variance <- function(data, response, group, num_permutations = 1000) {
@@ -526,15 +523,11 @@ library(dplyr)
 
 # Import DGroup values
 
-DGroup <- import("EFA_output.csv")
+DGroup <- import("./Scripts/EFA_output.csv")
 
-head(DGroup)
 DGroup$Vessel <- as.factor(DGroup$Vessel)
-is.factor(DGroup$Vessel)
 DGroup$ware <- as.factor(DGroup$ware)
-is.factor(DGroup$ware)
 DGroup <- as.data.frame(DGroup)
-is.data.frame(DGroup)
 
 DGroup_three <-  DGroup %>%
   mutate(ware = case_when(
@@ -559,9 +552,8 @@ group_distance_density_plot <- ggplot(DGroup_three, aes(x = Distance, fill = war
     y = "Density"
   )
 
-group_distance_density_plot
 
-png(filename = "group_distance_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table4_group_distance_density_plot.png", width = 1600, height = 1200, res=300)
 plot(group_distance_density_plot)
 dev.off()
 
@@ -578,7 +570,7 @@ Circ_density_plot <- ggplot(wall_thickness, aes(x = circ, fill = ware)) +
     y = "Density"
   )
 
-png(filename = "Circ_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table4_Circ_density_plot.png", width = 1600, height = 1200, res=300)
 plot(Circ_density_plot)
 dev.off()
 
@@ -595,7 +587,7 @@ Round_density_plot <- ggplot(wall_thickness, aes(x = Round, fill = ware)) +
     y = "Density"
   )
 
-png(filename = "Round_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table4_Round_density_plot.png", width = 1600, height = 1200, res=300)
 plot(Round_density_plot)
 dev.off()
 
@@ -613,7 +605,7 @@ CVvthickness_density_plot <- ggplot(wall_thickness, aes(x = CV_vertical_wall_thi
     y = "Density"
   )
 
-png(filename = "CVvthickness_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table4_CVvthickness_density_plot.png", width = 1600, height = 1200, res=300)
 plot(CVvthickness_density_plot)
 dev.off()
 
@@ -630,7 +622,7 @@ CVhthickness_density_plot <- ggplot(wall_thickness, aes(x = CV_horizontal_wall_t
     y = "Density"
   )
 
-png(filename = "CVhthickness_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table4_CVhthickness_density_plot.png", width = 1600, height = 1200, res=300)
 plot(CVhthickness_density_plot)
 dev.off()
 
@@ -648,7 +640,7 @@ CVhthickness_density_plot <- ggplot(wall_thickness, aes(x = CV_horizontal_wall_t
     y = "Density"
   )
 
-png(filename = "CVhthickness_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table4_CVhthickness_density_plot.png", width = 1600, height = 1200, res=300)
 plot(CVhthickness_density_plot)
 dev.off()
 
@@ -726,9 +718,8 @@ group_distance_range_density_plot <- ggplot(DGroup_three, aes(x = Distance, fill
     y = "Density"
   )
 
-group_distance_range_density_plot
 
-png(filename = "distance_range_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table4_distance_range_density_plot.png", width = 1600, height = 1200, res=300)
 plot(group_distance_range_density_plot)
 dev.off()
 
@@ -756,7 +747,7 @@ mvthickness_density_plot <- ggplot(wall_thickness, aes(x = mean_vertical_wall_th
     y = "Density"
   )
 
-png(filename = "mvthickness_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table4_mvthickness_density_plot.png", width = 1600, height = 1200, res=300)
 plot(mvthickness_density_plot)
 dev.off()
 
@@ -784,7 +775,7 @@ mhthickness_density_plot <- ggplot(wall_thickness, aes(x = mean_horizontal_wall_
     y = "Density"
   )
 
-png(filename = "mhthickness_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table4_mhthickness_density_plot.png", width = 1600, height = 1200, res=300)
 plot(mhthickness_density_plot)
 dev.off()
 
@@ -812,7 +803,7 @@ Circ_range_density_plot <- ggplot(wall_thickness, aes(x = circ, fill = ware)) +
     y = "Density"
   )
 
-png(filename = "Circ_range_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table4_Circ_range_density_plot.png", width = 1600, height = 1200, res=300)
 plot(Circ_range_density_plot)
 dev.off()
 
@@ -841,7 +832,7 @@ Round_range_density_plot <- ggplot(wall_thickness, aes(x = Round, fill = ware)) 
     y = "Density"
   )
 
-png(filename = "Round_range_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table4_Round_range_density_plot.png", width = 1600, height = 1200, res=300)
 plot(Round_range_density_plot)
 dev.off()
 
