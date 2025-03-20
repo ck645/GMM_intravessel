@@ -237,21 +237,8 @@ PC_Contribution_99_30$gg +
 
 #plot our vessels within a morphospace representative of these PCs:  
 
-plot_PCA(pcashape_99_30, axes = c(1,2), over_99$ware, 
-         morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
-         palette = pal_manual(c("#1B9E77", "#E6AB02", "#8D62C1","#D95F02", "#E7298A")), 
-         title = "PC 1 vs PC 2 considering cross-sections >99% preserved") %>% 
-  layer_points(cex = 0.5)
 
-png(filename = "Figure5_1.png", width = 2400, height = 1600, res=300)
-plot_PCA(pcashape_99_30, axes = c(1,2), over_99$ware, 
-         morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
-         palette = pal_manual(c("#1B9E77", "#E6AB02", "#8D62C1","#D95F02", "#E7298A")), 
-         title = "PC 1 vs PC 2 considering cross-sections >99% preserved") %>% 
-  layer_points(cex = 0.5)
-dev.off()
-
-pdf("Figure5_1.pdf", width = 11, height = 7)
+pdf("./Figures/Figure5_1.pdf", width = 11, height = 7)
 plot_PCA(pcashape_99_30, axes = c(1,2), over_99$ware, 
          morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
          palette = pal_manual(c("#1B9E77", "#E6AB02", "#8D62C1","#D95F02", "#E7298A")), 
@@ -260,23 +247,7 @@ plot_PCA(pcashape_99_30, axes = c(1,2), over_99$ware,
 dev.off()
 
 
-plot_PCA(pcashape_99_30, axes = c(1,2), over_99$Vessel, 
-         morphospace_position = "range_axes", zoom = 0.9, chull = FALSE, 
-         points = FALSE,
-         palette = pal_manual(c("#000000")), 
-         center_origin = FALSE,
-         title = "PC 1 vs PC 2 considering cross-sections >99% preserved")%>% layer_ellipses(conf = 0.9)
-
-png(filename = "Figure5_2.png", width = 2400, height = 1600, res=300)
-plot_PCA(pcashape_99_30, axes = c(1,2), over_99$Vessel, 
-         morphospace_position = "range_axes", zoom = 0.9, chull = FALSE, 
-         points = FALSE,
-         palette = pal_manual(c("#000000")), 
-         center_origin = FALSE,
-         title = "PC 1 vs PC 2 considering cross-sections >99% preserved")%>% layer_ellipses(conf = 0.9)
-dev.off()
-
-pdf("Figure5_2.pdf", width = 11, height = 7)
+pdf("./Figures/Figure5_2.pdf", width = 11, height = 7)
 plot_PCA(pcashape_99_30, axes = c(1,2), over_99$Vessel, 
          morphospace_position = "range_axes", zoom = 0.9, chull = FALSE, 
          points = FALSE,
@@ -286,13 +257,12 @@ plot_PCA(pcashape_99_30, axes = c(1,2), over_99$Vessel,
 dev.off()
 
 
-#examine differences in PC contributions by vessel or ware
 
-boxplot_99 <- boxplot(pcashape_99_30, over_99$ware, nax = 1:7)
-boxplot_99 + scale_fill_brewer(palette = "Dark2") + 
-  ggtitle("PC contribution sections which are > 99% complete")
+#Export the EFA as txt
 
- 
+Momocs::export(efashape_99_30, './Scripts/over_99_EFA_30.txt')
+
+
 # -------------------------------Assess EFA variance ---------------------------
 
 
@@ -383,6 +353,13 @@ CA230377 <- database[database$`Vessel`== 'CA230377',]
 CA230417 <- database[database$`Vessel`== 'CA230417',]
 CA230347 <- database[database$`Vessel`== 'CA230347',]
 CA230715 <- database[database$`Vessel`== 'CA230715',]
+
+CA230335 <- droplevels(CA230335)
+CA230365 <- droplevels(CA230365)
+CA230377 <- droplevels(CA230377)
+CA230417 <- droplevels(CA230417)
+CA230347 <- droplevels(CA230347)
+CA230715 <- droplevels(CA230715)
 
 CA230335_tps <- subset(tpsdata$coo, database$`Vessel`== 'CA230335',)
 CA230365_tps <- subset(tpsdata$coo, database$`Vessel`== 'CA230365',)

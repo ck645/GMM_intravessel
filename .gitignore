@@ -1,0 +1,30 @@
+# History and session data
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata
+
+# RStudio files
+.Rproj.user/
+.Rproj.user/*
+.Rproj*
+*.Rproj
+
+# Compiled code
+*.o
+*.so
+*.dll
+
+# Packages
+.RPackages/
+.RPackages/*
+
+# Cache and logs
+__pycache__/
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*~
