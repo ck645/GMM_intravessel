@@ -553,7 +553,7 @@ group_distance_density_plot <- ggplot(DGroup_three, aes(x = Distance, fill = war
   )
 
 
-png(filename = "./Figures/Table4_group_distance_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table4/group_distance_density_plot.png", width = 1600, height = 1200, res=300)
 plot(group_distance_density_plot)
 dev.off()
 
@@ -570,7 +570,7 @@ Circ_density_plot <- ggplot(wall_thickness, aes(x = circ, fill = ware)) +
     y = "Density"
   )
 
-png(filename = "./Figures/Table4_Circ_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table4/Circ_density_plot.png", width = 1600, height = 1200, res=300)
 plot(Circ_density_plot)
 dev.off()
 
@@ -587,7 +587,7 @@ Round_density_plot <- ggplot(wall_thickness, aes(x = Round, fill = ware)) +
     y = "Density"
   )
 
-png(filename = "./Figures/Table4_Round_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table4/Round_density_plot.png", width = 1600, height = 1200, res=300)
 plot(Round_density_plot)
 dev.off()
 
@@ -605,7 +605,7 @@ CVvthickness_density_plot <- ggplot(wall_thickness, aes(x = CV_vertical_wall_thi
     y = "Density"
   )
 
-png(filename = "./Figures/Table4_CVvthickness_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table4/CVvthickness_density_plot.png", width = 1600, height = 1200, res=300)
 plot(CVvthickness_density_plot)
 dev.off()
 
@@ -622,7 +622,7 @@ CVhthickness_density_plot <- ggplot(wall_thickness, aes(x = CV_horizontal_wall_t
     y = "Density"
   )
 
-png(filename = "./Figures/Table4_CVhthickness_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table4/CVhthickness_density_plot.png", width = 1600, height = 1200, res=300)
 plot(CVhthickness_density_plot)
 dev.off()
 
@@ -640,7 +640,7 @@ CVhthickness_density_plot <- ggplot(wall_thickness, aes(x = CV_horizontal_wall_t
     y = "Density"
   )
 
-png(filename = "./Figures/Table4_CVhthickness_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table4/CVhthickness_density_plot.png", width = 1600, height = 1200, res=300)
 plot(CVhthickness_density_plot)
 dev.off()
 
@@ -673,25 +673,6 @@ horizontal_df <-  horizontal_df %>%
     TRUE ~ as.character(Ware)  
   ))
 
-hthickenss_density_plot <- ggplot(horizontal_df, aes(x = Width_mm_div, fill = Ware)) +
-  geom_density(alpha = 0.3) +
-  scale_fill_manual(values = manual_colors)+
-  theme_minimal() +
-  # Add vertical lines for 5th and 95th percentiles
-  geom_vline(data = horizontal_range_data, aes(xintercept = P5, color = Ware), linetype = "dotted", size = 1) +
-  geom_vline(data = horizontal_range_data, aes(xintercept = P95, color = Ware), linetype = "dotted", size = 1) +
-  # Add staggered tie lines between P5 and P95
-  geom_segment(data = horizontal_range_data, 
-               aes(x = P5, xend = P95, y = as.numeric(factor(Ware)) * 2, yend = as.numeric(factor(Ware)) * 2, color = Ware), 
-               size = 1) +
-  scale_color_manual(values = manual_colors) + 
-  labs(
-    x = "relative wall thickness",
-    y = "Density"
-  )
-
-hthickenss_density_plot 
-
 
 distance_range_data <- DGroup_three %>%
   group_by(ware) %>%
@@ -719,7 +700,7 @@ group_distance_range_density_plot <- ggplot(DGroup_three, aes(x = Distance, fill
   )
 
 
-png(filename = "./Figures/Table4_distance_range_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table4/distance_range_density_plot.png", width = 1600, height = 1200, res=300)
 plot(group_distance_range_density_plot)
 dev.off()
 
@@ -747,7 +728,7 @@ mvthickness_density_plot <- ggplot(wall_thickness, aes(x = mean_vertical_wall_th
     y = "Density"
   )
 
-png(filename = "./Figures/Table4_mvthickness_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table4/mvthickness_density_plot.png", width = 1600, height = 1200, res=300)
 plot(mvthickness_density_plot)
 dev.off()
 
@@ -775,7 +756,7 @@ mhthickness_density_plot <- ggplot(wall_thickness, aes(x = mean_horizontal_wall_
     y = "Density"
   )
 
-png(filename = "./Figures/Table4_mhthickness_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table4/mhthickness_density_plot.png", width = 1600, height = 1200, res=300)
 plot(mhthickness_density_plot)
 dev.off()
 
@@ -803,7 +784,7 @@ Circ_range_density_plot <- ggplot(wall_thickness, aes(x = circ, fill = ware)) +
     y = "Density"
   )
 
-png(filename = "./Figures/Table4_Circ_range_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table4/Circ_range_density_plot.png", width = 1600, height = 1200, res=300)
 plot(Circ_range_density_plot)
 dev.off()
 
@@ -832,7 +813,7 @@ Round_range_density_plot <- ggplot(wall_thickness, aes(x = Round, fill = ware)) 
     y = "Density"
   )
 
-png(filename = "./Figures/Table4_Round_range_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table4/Round_range_density_plot.png", width = 1600, height = 1200, res=300)
 plot(Round_range_density_plot)
 dev.off()
 
