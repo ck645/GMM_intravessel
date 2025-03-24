@@ -91,11 +91,6 @@ over_99_tps <- subset(tpsdata$coo, database$`percent_complete`> 0.99,)
 
 shape_99 <- Out(over_99_tps, fac = over_99)
 
-## **Outline Visualisation**  
-
-panel_99 <- panel(shape_99, fac = over_99$Vessel, 
-                  palette = pal_manual(c("#1B9E77", "#7570B3", "#D95F02")),
-                  main = "cross-sections >99% preserved") 
 
 
 # ------------------------Outline Normalisation---------------------------------
@@ -103,8 +98,6 @@ panel_99 <- panel(shape_99, fac = over_99$Vessel,
 shapenorm_99 <- coo_center(shape_99)
 shapenorm_99 <- coo_scale(shapenorm_99)
 shapenorm_99 <- coo_close(shapenorm_99)
-
-stack(shapenorm_99, title = "Stack: Normalised Outlines which are >99% complete")
 shapenorm2_99 <- shapenorm_99 %>% coo_slidedirection("right") %>% coo_untiltx()
 
 # ----------------------Elliptic Fourier Analysis-------------------------------
@@ -211,47 +204,10 @@ scree(pcashape_99)
 scree(pcashape_99_30)
 
 
-#Through the scree function we can find what number of axes account for 99% 
-#cumulative shape variance
-
-PC_Scree_99 <- scree_plot(pcashape_99, nax = 1:7)
-PC_Scree_99 + ggtitle("PC Contribution for cross-sections preserving > 99%")
-
-PC_Scree_99_30 <- scree_plot(pcashape_99_30, nax = 1:8)
-PC_Scree_99_30 + ggtitle("PC Contribution for cross-sections preserving > 99%, 
-                         considering 30 harmonics")
-
-#plot the PC contribution for the PCs that account for 99% of total 
-#shape variation:
-
-PC_Contribution_99 <- PCcontrib(pcashape_99, nax = 1:6, 
-                                sd.r = c(-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1))
-PC_Contribution_99$gg + ggtitle("PC Contribution for cross-sections preserving > 99%")
-
-
-PC_Contribution_99_30 <- PCcontrib(pcashape_99_30, nax = 1:6, 
-                                   sd.r = c(-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1))
-PC_Contribution_99_30$gg + 
-  ggtitle("PC Contribution for cross-sections preserving > 99%, considering 30 harmonics")
-
-
 #plot our vessels within a morphospace representative of these PCs:  
 
-plot_PCA(pcashape_99_30, axes = c(1,2), over_99$ware, 
-         morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
-         palette = pal_manual(c("#1B9E77", "#E6AB02", "#8D62C1","#D95F02", "#E7298A")), 
-         title = "PC 1 vs PC 2 considering cross-sections >99% preserved") %>% 
-  layer_points(cex = 0.5)
 
-png(filename = "Figure5_1.png", width = 2400, height = 1600, res=300)
-plot_PCA(pcashape_99_30, axes = c(1,2), over_99$ware, 
-         morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
-         palette = pal_manual(c("#1B9E77", "#E6AB02", "#8D62C1","#D95F02", "#E7298A")), 
-         title = "PC 1 vs PC 2 considering cross-sections >99% preserved") %>% 
-  layer_points(cex = 0.5)
-dev.off()
-
-pdf("Figure5_1.pdf", width = 11, height = 7)
+pdf("./Figures/Figure5_1.pdf", width = 11, height = 7)
 plot_PCA(pcashape_99_30, axes = c(1,2), over_99$ware, 
          morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
          palette = pal_manual(c("#1B9E77", "#E6AB02", "#8D62C1","#D95F02", "#E7298A")), 
@@ -260,23 +216,7 @@ plot_PCA(pcashape_99_30, axes = c(1,2), over_99$ware,
 dev.off()
 
 
-plot_PCA(pcashape_99_30, axes = c(1,2), over_99$Vessel, 
-         morphospace_position = "range_axes", zoom = 0.9, chull = FALSE, 
-         points = FALSE,
-         palette = pal_manual(c("#000000")), 
-         center_origin = FALSE,
-         title = "PC 1 vs PC 2 considering cross-sections >99% preserved")%>% layer_ellipses(conf = 0.9)
-
-png(filename = "Figure5_2.png", width = 2400, height = 1600, res=300)
-plot_PCA(pcashape_99_30, axes = c(1,2), over_99$Vessel, 
-         morphospace_position = "range_axes", zoom = 0.9, chull = FALSE, 
-         points = FALSE,
-         palette = pal_manual(c("#000000")), 
-         center_origin = FALSE,
-         title = "PC 1 vs PC 2 considering cross-sections >99% preserved")%>% layer_ellipses(conf = 0.9)
-dev.off()
-
-pdf("Figure5_2.pdf", width = 11, height = 7)
+pdf("./Figures/Figure5_2.pdf", width = 11, height = 7)
 plot_PCA(pcashape_99_30, axes = c(1,2), over_99$Vessel, 
          morphospace_position = "range_axes", zoom = 0.9, chull = FALSE, 
          points = FALSE,
@@ -292,6 +232,11 @@ boxplot_99 <- boxplot(pcashape_99_30, over_99$ware, nax = 1:7)
 boxplot_99 + scale_fill_brewer(palette = "Dark2") + 
   ggtitle("PC contribution sections which are > 99% complete")
 
+
+#Export the EFA as txt
+
+file.create('./Scripts/over_99_EFA_30.txt')
+Momocs::export(efashape_99_30, './Scripts/over_99_EFA_30.txt')
  
 # -------------------------------Assess EFA variance ---------------------------
 
@@ -348,6 +293,7 @@ boxplot_EFA_30 <- ggplot(EFA, aes(x = Vessel, y = Distance, fill = ware)) +
     outlier.shape = NA
   ) +
   coord_cartesian(xlim = c(0, 30), clip = "off") + 
+  stat_summary(fun = mean, geom = "point", shape = 21, size = 1.5, color = "black", fill = "white", stroke = 1) +
   theme_classic() +
   theme(
     axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
@@ -462,63 +408,46 @@ scree(pcashape_CA230417)
 scree(pcashape_CA230347)
 scree(pcashape_CA230715)
 
-#visualising PC contributions
-
-PC_Cont_CA230335 <- PCcontrib(pcashape_CA230335, nax = 1:2, 
-                              sd.r = c(-2, -1, 0, 1, 2))
-PC_Cont_CA230365 <- PCcontrib(pcashape_CA230365, nax = 1:3, 
-                              sd.r = c(-1, -0.5, 0, 0.5, 1))
-PC_Cont_CA230377 <- PCcontrib(pcashape_CA230377, nax = 1:3, 
-                              sd.r = c(-1, -0.5, 0, 0.5, 1))
-PC_Cont_CA230417 <- PCcontrib(pcashape_CA230417, nax = 1:3, 
-                              sd.r = c(-1, -0.5, 0, 0.5, 1))
-PC_Cont_CA230347 <- PCcontrib(pcashape_CA230347, nax = 1:3, 
-                              sd.r = c(-1, -0.5, 0, 0.5, 1))
-PC_Cont_CA230715 <- PCcontrib(pcashape_CA230715, nax = 1:3, 
-                              sd.r = c(-1, -0.5, 0, 0.5, 1))
-
-
-
 png(filename = "./Figures/Figure7a.png", width = 2400, height = 1600, res=300)
 plot_PCA(pcashape_CA230365, axes = c(1,2), CA230365$Vessel, palette = pal_manual(c("#1B9E77")), 
          morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
          title = "CA230365") %>% 
-  layer_points(cex = 0.5)
+  layer_points(cex = 1)
 dev.off()
 
 png(filename = "./Figures/Figure7b.png", width = 2400, height = 1600, res=300)
 plot_PCA(pcashape_CA230377, axes = c(1,2), CA230377$Vessel, palette = pal_manual(c("#1B9E77")), 
          morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
          title = "CA230377") %>% 
-  layer_points(cex = 0.5)
+  layer_points(cex = 1)
 dev.off()
 
 png(filename = "./Figures/Figure7c.png", width = 2400, height = 1600, res=300)
 plot_PCA(pcashape_CA230417, axes = c(1,2), CA230417$Vessel, palette = pal_manual(c("#E6AB02")), 
          morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
          title = "CA230417") %>% 
-  layer_points(cex = 0.5)
+  layer_points(cex = 1)
 dev.off()
 
 png(filename = "./Figures/Figure7d.png", width = 2400, height = 1600, res=300)
 plot_PCA(pcashape_CA230347, axes = c(1,2), CA230347$Vessel, palette = pal_manual(c("#8D62C1")), 
          morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
          title = "CA230347") %>% 
-  layer_points(cex = 0.5)
+  layer_points(cex = 1)
 dev.off()
 
 png(filename = "./Figures/Figure7e.png", width = 2400, height = 1600, res=300)
 plot_PCA(pcashape_CA230715, axes = c(1,2), CA230715$Vessel, palette = pal_manual(c("#D95f02")), 
          morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
          title = "CA230715") %>% 
-  layer_points(cex = 0.5)
+  layer_points(cex = 1)
 dev.off()
 
 png(filename = "./Figures/Figure7f.png", width = 2400, height = 1600, res=300)
 plot_PCA(pcashape_CA230335, axes = c(1,2), CA230335$Vessel, palette = pal_manual(c("#D95F02")), 
          morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
          title = "CA230335") %>% 
-  layer_points(cex = 0.5)
+  layer_points(cex = 1)
 dev.off()
 
 # ------------------------------Acknowledgement---------------------------------
