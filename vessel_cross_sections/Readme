@@ -1,0 +1,1 @@
+This directory contains all vessel cross-sections which have been edited to infill missing sections with red to calculate the completeness of the cross-section, a step necessary prior to conduction intravessel GMM
