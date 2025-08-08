@@ -74,7 +74,7 @@ process_image <- function(image_file) {
  
 
 # Path to cross-sections folder
-image_directory <- "~/3D/intravessel/30 vessel article/vessel_cross_sections_incomplete"
+image_directory <- "./vessel_cross_sections"
 
 # Create a list of image paths
 image_files <- list.files(image_directory, pattern = "\\.(jpg|jpeg|tiff)$", full.names = TRUE)
@@ -88,7 +88,8 @@ results_list <- lapply(image_files, process_image)
 combined_results <- do.call(rbind, results_list)
 
 # Write the combined results to a CSV file
-write.csv(combined_results, "color_counts_combined.csv", row.names = FALSE)
+write.csv(combined_results, "./Scripts/color_counts_combined.csv", row.names = FALSE)
+
 
 
 
