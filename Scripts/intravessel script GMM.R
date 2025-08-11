@@ -103,8 +103,8 @@ shapenorm2_99 <- shapenorm_99 %>% coo_slidedirection("right") %>% coo_untiltx()
 # ----------------------Elliptic Fourier Analysis-------------------------------
 
 calibrate_harmonicpower_efourier(shapenorm2_99, plot = FALSE)
-calibrate_reconstructions_efourier(shapenorm2_99, range = 1:30)
-calibrate_deviations_efourier(shapenorm2_99)
+calibrate_reconstructions_efourier(shapenorm2_99, range = 1:40)
+calibrate_deviations_efourier(shapenorm2_99, range = c(17,20,25,30,40))
 
 #compute efa shape with number of harmonics that account for 99.9% of variation (n=17)
 
@@ -461,5 +461,6 @@ citation("vegan")
 citation("ggplot2")
 citation("dplyr")
 citation("tidyr")
+
 
 
