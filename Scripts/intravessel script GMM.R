@@ -410,42 +410,42 @@ scree(pcashape_CA230715)
 
 png(filename = "./Figures/Figure7a.png", width = 2400, height = 1600, res=300)
 plot_PCA(pcashape_CA230365, axes = c(1,2), CA230365$Vessel, palette = pal_manual(c("#1B9E77")), 
-         morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
+         morphospace_position = "range", zoom = 0.8, chull = FALSE, center_origin = FALSE,
          title = "CA230365") %>% 
   layer_points(cex = 1)
 dev.off()
 
 png(filename = "./Figures/Figure7b.png", width = 2400, height = 1600, res=300)
 plot_PCA(pcashape_CA230377, axes = c(1,2), CA230377$Vessel, palette = pal_manual(c("#1B9E77")), 
-         morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
+         morphospace_position = "range", zoom = 0.8, chull = FALSE, center_origin = FALSE,
          title = "CA230377") %>% 
   layer_points(cex = 1)
 dev.off()
 
 png(filename = "./Figures/Figure7c.png", width = 2400, height = 1600, res=300)
 plot_PCA(pcashape_CA230417, axes = c(1,2), CA230417$Vessel, palette = pal_manual(c("#E6AB02")), 
-         morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
+         morphospace_position = "range", zoom = 0.8, chull = FALSE, center_origin = FALSE,
          title = "CA230417") %>% 
   layer_points(cex = 1)
 dev.off()
 
 png(filename = "./Figures/Figure7d.png", width = 2400, height = 1600, res=300)
 plot_PCA(pcashape_CA230347, axes = c(1,2), CA230347$Vessel, palette = pal_manual(c("#8D62C1")), 
-         morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
+         morphospace_position = "range", zoom = 0.8, chull = FALSE, center_origin = FALSE,
          title = "CA230347") %>% 
   layer_points(cex = 1)
 dev.off()
 
 png(filename = "./Figures/Figure7e.png", width = 2400, height = 1600, res=300)
 plot_PCA(pcashape_CA230715, axes = c(1,2), CA230715$Vessel, palette = pal_manual(c("#D95f02")), 
-         morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
+         morphospace_position = "range", zoom = 0.8, chull = FALSE, center_origin = FALSE,
          title = "CA230715") %>% 
   layer_points(cex = 1)
 dev.off()
 
 png(filename = "./Figures/Figure7f.png", width = 2400, height = 1600, res=300)
 plot_PCA(pcashape_CA230335, axes = c(1,2), CA230335$Vessel, palette = pal_manual(c("#D95F02")), 
-         morphospace_position = "range", zoom = 0.9, chull = FALSE, center_origin = FALSE,
+         morphospace_position = "range", zoom = 0.8, chull = FALSE, center_origin = FALSE,
          title = "CA230335") %>% 
   layer_points(cex = 1)
 dev.off()
@@ -461,6 +461,7 @@ citation("vegan")
 citation("ggplot2")
 citation("dplyr")
 citation("tidyr")
+
 
 
 
