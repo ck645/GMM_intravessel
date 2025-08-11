@@ -118,19 +118,22 @@ coo_plot(shapenorm2_99[412], col = "transparent", centroid = TRUE,)
 
 CA230378_24 <- shapenorm2_99[412]
 
+efashape_CA230378_8 <- efourier(CA230378_24, nb.h = 8, smooth.it = 0, norm = TRUE)
 efashape_CA230378_17 <- efourier(CA230378_24, nb.h = 17, smooth.it = 0, norm = TRUE)
 efashape_CA230378_20 <- efourier(CA230378_24, nb.h = 20, smooth.it = 0, norm = TRUE)
 efashape_CA230378_25 <- efourier(CA230378_24, nb.h = 25, smooth.it = 0, norm = TRUE)
 efashape_CA230378_30 <- efourier(CA230378_24, nb.h = 30, smooth.it = 0, norm = TRUE)
 efashape_CA230378_40 <- efourier(CA230378_24, nb.h = 40, smooth.it = 0, norm = TRUE)
 
-CA230378_17_xy <- efourier_i(efashape_CA230378_15, nb.h = 17, nb.pts = 200)
+CA230378_8_xy <- efourier_i(efashape_CA230378_8, nb.h = 17, nb.pts = 200)
+CA230378_17_xy <- efourier_i(efashape_CA230378_17, nb.h = 17, nb.pts = 200)
 CA230378_20_xy <- efourier_i(efashape_CA230378_20, nb.h = 20, nb.pts = 200)
 CA230378_25_xy <- efourier_i(efashape_CA230378_25, nb.h = 25, nb.pts = 200)
 CA230378_30_xy <- efourier_i(efashape_CA230378_30, nb.h = 30, nb.pts = 200)
 CA230378_40_xy <- efourier_i(efashape_CA230378_40, nb.h = 40, nb.pts = 200)
 
 CA230378_24 <- as.data.frame(CA230378_24)
+CA230378_8_xy <- as.data.frame(CA230378_8_xy)
 CA230378_17_xy <- as.data.frame(CA230378_17_xy)
 CA230378_20_xy <- as.data.frame(CA230378_20_xy)
 CA230378_25_xy <- as.data.frame(CA230378_25_xy)
@@ -149,12 +152,14 @@ harmonics <- ggplot(CA230378_24, aes(x = V1, y = V2)) +
 
 # Add the Fourier shapes with different colors and legend
 harmonics + 
+  geom_path(data = CA230378_8_xy, aes(x = x, y = y, color = "8 harmonics")) +
   geom_path(data = CA230378_17_xy, aes(x = x, y = y, color = "17 harmonics")) +
   geom_path(data = CA230378_20_xy, aes(x = x, y = y, color = "20 harmonics")) +
   geom_path(data = CA230378_25_xy, aes(x = x, y = y, color = "25 harmonics")) +
   geom_path(data = CA230378_30_xy, aes(x = x, y = y, color = "30 harmonics")) +
   geom_path(data = CA230378_40_xy, aes(x = x, y = y, color = "40 harmonics")) +
-  scale_color_manual(values = c("17 harmonics" = "red", 
+  scale_color_manual(values = c("8 harmonics" = "purple", 
+                                "17 harmonics" = "red", 
                                 "20 harmonics" = "orange", 
                                 "25 harmonics" = "yellow", 
                                 "30 harmonics" = "green", 
@@ -163,17 +168,19 @@ harmonics +
 
 png(filename = "./Figures/Figure4.png", width = 2400, height = 2400, res=300)
 plot(harmonics + 
-       geom_path(data = CA230378_17_xy, aes(x = x, y = y, color = "17 harmonics")) +
-       geom_path(data = CA230378_20_xy, aes(x = x, y = y, color = "20 harmonics")) +
-       geom_path(data = CA230378_25_xy, aes(x = x, y = y, color = "25 harmonics")) +
-       geom_path(data = CA230378_30_xy, aes(x = x, y = y, color = "30 harmonics")) +
-       geom_path(data = CA230378_40_xy, aes(x = x, y = y, color = "40 harmonics")) +
-       scale_color_manual(values = c("17 harmonics" = "red", 
-                                     "20 harmonics" = "orange", 
-                                     "25 harmonics" = "yellow", 
-                                     "30 harmonics" = "green", 
-                                     "40 harmonics" = "blue")) +
-       labs(color = "Number of Harmonics"))
+  geom_path(data = CA230378_8_xy, aes(x = x, y = y, color = "8 harmonics")) +
+  geom_path(data = CA230378_17_xy, aes(x = x, y = y, color = "17 harmonics")) +
+  geom_path(data = CA230378_20_xy, aes(x = x, y = y, color = "20 harmonics")) +
+  geom_path(data = CA230378_25_xy, aes(x = x, y = y, color = "25 harmonics")) +
+  geom_path(data = CA230378_30_xy, aes(x = x, y = y, color = "30 harmonics")) +
+  geom_path(data = CA230378_40_xy, aes(x = x, y = y, color = "40 harmonics")) +
+  scale_color_manual(values = c("8 harmonics" = "purple", 
+                                "17 harmonics" = "red", 
+                                "20 harmonics" = "orange", 
+                                "25 harmonics" = "yellow", 
+                                "30 harmonics" = "green", 
+                                "40 harmonics" = "blue")) +
+  labs(color = "Number of Harmonics")
 dev.off()
 
 
@@ -461,6 +468,7 @@ citation("vegan")
 citation("ggplot2")
 citation("dplyr")
 citation("tidyr")
+
 
 
 
