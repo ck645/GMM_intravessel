@@ -104,7 +104,7 @@ shapenorm2_99 <- shapenorm_99 %>% coo_slidedirection("right") %>% coo_untiltx()
 
 calibrate_harmonicpower_efourier(shapenorm2_99, plot = FALSE)
 calibrate_reconstructions_efourier(shapenorm2_99, range = 1:40)
-calibrate_deviations_efourier(shapenorm2_99, range = c(17,20,25,30,40))
+calibrate_deviations_efourier(shapenorm2_99, range = c(8,17,20,25,30,40))
 
 #compute efa shape with number of harmonics that account for 99.9% of variation (n=17)
 
@@ -166,7 +166,7 @@ harmonics +
                                 "40 harmonics" = "blue")) +
   labs(color = "Number of Harmonics")
 
-png(filename = "./Figures/Figure4.png", width = 2400, height = 2400, res=300)
+png(filename = "./Figures/Figure4a.png", width = 2400, height = 2400, res=300)
 plot(harmonics + 
   geom_path(data = CA230378_8_xy, aes(x = x, y = y, color = "8 harmonics")) +
   geom_path(data = CA230378_17_xy, aes(x = x, y = y, color = "17 harmonics")) +
@@ -183,7 +183,49 @@ plot(harmonics +
   labs(color = "Number of Harmonics")
 dev.off()
 
+harmonics2 <- ggplot(CA230378_24, aes(x = V1, y = V2)) + 
+  geom_path(color = "black") + 
+  theme_minimal() +
+  labs(title = "CA230378_24", x = "x", y = "y") +
+  theme(legend.title = element_blank()) +
+  theme(legend.position = "bottom") +
+  scale_x_continuous(limits = c(0.25, 0.75)) + 
+  scale_y_continuous(limits = c(-0.25, 0.25))
 
+# Add the Fourier shapes with different colors and legend
+harmonics2 + 
+  geom_path(data = CA230378_8_xy, aes(x = x, y = y, color = "8 harmonics")) +
+  geom_path(data = CA230378_17_xy, aes(x = x, y = y, color = "17 harmonics")) +
+  geom_path(data = CA230378_20_xy, aes(x = x, y = y, color = "20 harmonics")) +
+  geom_path(data = CA230378_25_xy, aes(x = x, y = y, color = "25 harmonics")) +
+  geom_path(data = CA230378_30_xy, aes(x = x, y = y, color = "30 harmonics")) +
+  geom_path(data = CA230378_40_xy, aes(x = x, y = y, color = "40 harmonics")) +
+  scale_color_manual(values = c("8 harmonics" = "purple", 
+                                "17 harmonics" = "red", 
+                                "20 harmonics" = "orange", 
+                                "25 harmonics" = "yellow", 
+                                "30 harmonics" = "green", 
+                                "40 harmonics" = "blue")) +
+  labs(color = "Number of Harmonics")
+
+png(filename = "./Figures/Figure4b.png", width = 2400, height = 2400, res=300)
+plot(harmonics2 + 
+  geom_path(data = CA230378_8_xy, aes(x = x, y = y, color = "8 harmonics")) +
+  geom_path(data = CA230378_17_xy, aes(x = x, y = y, color = "17 harmonics")) +
+  geom_path(data = CA230378_20_xy, aes(x = x, y = y, color = "20 harmonics")) +
+  geom_path(data = CA230378_25_xy, aes(x = x, y = y, color = "25 harmonics")) +
+  geom_path(data = CA230378_30_xy, aes(x = x, y = y, color = "30 harmonics")) +
+  geom_path(data = CA230378_40_xy, aes(x = x, y = y, color = "40 harmonics")) +
+  scale_color_manual(values = c("8 harmonics" = "purple", 
+                                "17 harmonics" = "red", 
+                                "20 harmonics" = "orange", 
+                                "25 harmonics" = "yellow", 
+                                "30 harmonics" = "green", 
+                                "40 harmonics" = "blue")) +
+  labs(color = "Number of Harmonics")
+dev.off()
+
+     
 
 #We will also run the analysis considering 30 harmonics.
 
@@ -468,6 +510,7 @@ citation("vegan")
 citation("ggplot2")
 citation("dplyr")
 citation("tidyr")
+
 
 
 
