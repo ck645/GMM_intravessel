@@ -87,6 +87,10 @@ results_list <- lapply(image_files, process_image)
 # Combine the results into a single dataframe
 combined_results <- do.call(rbind, results_list)
 
+# create percent_complete and ID columns
+combined_results$percent_complete <- 1 - combined_results$proportion_red_to_red_black
+combined_results$ID <- sub("(_infill\\.(tiff|jpg|jpeg))$", "", combined_results$file_name)
+
 # Write the combined results to a CSV file
 write.csv(combined_results, "./Scripts/color_counts_combined.csv", row.names = FALSE)
 
