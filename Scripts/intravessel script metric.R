@@ -371,11 +371,9 @@ wall_thickness_results
 library(ggplot2)
 library(dplyr)
 
-
-
 # Import DGroup values
 
-DGroup <- import("EFA_output.csv")
+DGroup <- import("./Scripts/EFA_output.csv")
 
 head(DGroup)
 DGroup$Vessel <- as.factor(DGroup$Vessel)

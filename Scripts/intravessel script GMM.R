@@ -125,7 +125,7 @@ efashape_CA230378_25 <- efourier(CA230378_24, nb.h = 25, smooth.it = 0, norm = T
 efashape_CA230378_30 <- efourier(CA230378_24, nb.h = 30, smooth.it = 0, norm = TRUE)
 efashape_CA230378_40 <- efourier(CA230378_24, nb.h = 40, smooth.it = 0, norm = TRUE)
 
-CA230378_8_xy <- efourier_i(efashape_CA230378_8, nb.h = 17, nb.pts = 200)
+CA230378_8_xy <- efourier_i(efashape_CA230378_8, nb.h = 8, nb.pts = 200)
 CA230378_17_xy <- efourier_i(efashape_CA230378_17, nb.h = 17, nb.pts = 200)
 CA230378_20_xy <- efourier_i(efashape_CA230378_20, nb.h = 20, nb.pts = 200)
 CA230378_25_xy <- efourier_i(efashape_CA230378_25, nb.h = 25, nb.pts = 200)
@@ -180,7 +180,7 @@ plot(harmonics +
                                 "25 harmonics" = "yellow", 
                                 "30 harmonics" = "green", 
                                 "40 harmonics" = "blue")) +
-  labs(color = "Number of Harmonics")
+  labs(color = "Number of Harmonics"))
 dev.off()
 
 harmonics2 <- ggplot(CA230378_24, aes(x = V1, y = V2)) + 
@@ -222,7 +222,7 @@ plot(harmonics2 +
                                 "25 harmonics" = "yellow", 
                                 "30 harmonics" = "green", 
                                 "40 harmonics" = "blue")) +
-  labs(color = "Number of Harmonics")
+  labs(color = "Number of Harmonics"))
 dev.off()
 
      
@@ -458,42 +458,42 @@ scree(pcashape_CA230347)
 scree(pcashape_CA230715)
 
 png(filename = "./Figures/Figure7a.png", width = 2400, height = 1600, res=300)
-plot_PCA(pcashape_CA230365, axes = c(1,2), CA230365$Vessel, palette = pal_manual(c("#1B9E77")), 
+plot_PCA(pcashape_CA230365, axes = c(1,2), CA230365$Vessel, palette = pal_manual(c("#1B9E77")), legend = FALSE,
          morphospace_position = "range", zoom = 0.8, chull = FALSE, center_origin = FALSE,
          title = "CA230365") %>% 
   layer_points(cex = 1)
 dev.off()
 
 png(filename = "./Figures/Figure7b.png", width = 2400, height = 1600, res=300)
-plot_PCA(pcashape_CA230377, axes = c(1,2), CA230377$Vessel, palette = pal_manual(c("#1B9E77")), 
+plot_PCA(pcashape_CA230377, axes = c(1,2), CA230377$Vessel, palette = pal_manual(c("#1B9E77")), legend = FALSE,
          morphospace_position = "range", zoom = 0.8, chull = FALSE, center_origin = FALSE,
          title = "CA230377") %>% 
   layer_points(cex = 1)
 dev.off()
 
 png(filename = "./Figures/Figure7c.png", width = 2400, height = 1600, res=300)
-plot_PCA(pcashape_CA230417, axes = c(1,2), CA230417$Vessel, palette = pal_manual(c("#E6AB02")), 
+plot_PCA(pcashape_CA230417, axes = c(1,2), CA230417$Vessel, palette = pal_manual(c("#E6AB02")), legend = FALSE,
          morphospace_position = "range", zoom = 0.8, chull = FALSE, center_origin = FALSE,
          title = "CA230417") %>% 
   layer_points(cex = 1)
 dev.off()
 
 png(filename = "./Figures/Figure7d.png", width = 2400, height = 1600, res=300)
-plot_PCA(pcashape_CA230347, axes = c(1,2), CA230347$Vessel, palette = pal_manual(c("#8D62C1")), 
+plot_PCA(pcashape_CA230347, axes = c(1,2), CA230347$Vessel, palette = pal_manual(c("#8D62C1")), legend = FALSE,
          morphospace_position = "range", zoom = 0.8, chull = FALSE, center_origin = FALSE,
          title = "CA230347") %>% 
   layer_points(cex = 1)
 dev.off()
 
 png(filename = "./Figures/Figure7e.png", width = 2400, height = 1600, res=300)
-plot_PCA(pcashape_CA230715, axes = c(1,2), CA230715$Vessel, palette = pal_manual(c("#D95f02")), 
+plot_PCA(pcashape_CA230715, axes = c(1,2), CA230715$Vessel, palette = pal_manual(c("#D95f02")), legend = FALSE,
          morphospace_position = "range", zoom = 0.8, chull = FALSE, center_origin = FALSE,
          title = "CA230715") %>% 
   layer_points(cex = 1)
 dev.off()
 
 png(filename = "./Figures/Figure7f.png", width = 2400, height = 1600, res=300)
-plot_PCA(pcashape_CA230335, axes = c(1,2), CA230335$Vessel, palette = pal_manual(c("#D95F02")), 
+plot_PCA(pcashape_CA230335, axes = c(1,2), CA230335$Vessel, palette = pal_manual(c("#D95F02")), legend = FALSE,
          morphospace_position = "range", zoom = 0.8, chull = FALSE, center_origin = FALSE,
          title = "CA230335") %>% 
   layer_points(cex = 1)
