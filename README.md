@@ -2,7 +2,7 @@
 
 This repository contains the data and scripts used in the manuscript:
 
-**New method to assess inter- and intra- shape variation of ceramic vessels using GMM**
+**A method to assess inter- and intra- vessel shape variation in pottery using outline-based geometric morphometrics (GMM)**
 
 The repository is organised into three directories: Figures, Scripts, and Supplementary Materials
 
