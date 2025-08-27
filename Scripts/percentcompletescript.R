@@ -1,4 +1,4 @@
-## **Calcuation of completeness of individual cross-sections**
+## **Calculation of completeness of individual cross-sections**
 
 # Catherine Klesner
 # 2025
@@ -13,7 +13,7 @@ library(raster)
 # components of the cross-section of the vessel are infilled with **RED** 
 # following standard archaeological illustration practices. 
 
------------------- # Function to calculate the color counts --------------------
+#------------------ Function to calculate the color counts --------------------
 calculate_color_counts <- function(img_raster) {
   red_channel <- values(img_raster[[1]])
   green_channel <- values(img_raster[[2]])
@@ -48,7 +48,7 @@ calculate_color_counts <- function(img_raster) {
   return(result_df)
 }
 
-----------------------# Function to process each image--------------------------
+#---------------------- Function to process each image--------------------------
 process_image <- function(image_file) {
   tryCatch({
     img <- image_read(image_file)
