@@ -116,7 +116,7 @@ The `Supplementary_Materials/` directory contains all supplementary documents an
 
 ## R session info
 
-The code was run using R version 4.3.1 
+The code was run using R version 4.3.1 (R Core Team, 2023). 
 
 The following R packages are required to execute the code:
 
