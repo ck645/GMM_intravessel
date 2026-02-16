@@ -2,7 +2,7 @@
 
 This repository contains the data and scripts used in the article:
 
-Catherine Klesner, Rosie Crawford, Jasmine Vieri, & Marcos Martinón-Torres (2026) **A method to assess inter- and intra-vessel shape variation in pottery using outline-based geometric morphometrics (GMM)** *Antiquity*
+Catherine Klesner, Rosie Crawford, Jasmine Vieri, & Marcos Martinón-Torres (2026) "A method to assess inter- and intra-vessel shape variation in pottery using outline-based geometric morphometrics (GMM)" *Antiquity*
 
 ---
 
@@ -49,7 +49,7 @@ The script **`Scripts/GMM_intravessel_variation.R`** performs the outline-based 
 
 All outlines were digitised using `tpsUtil` and `tpsDig2`, and imported into R as TPS coordinate files with associated CSV metadata. The workflow uses two outline datasets:
 
-1. A single-cross-section dataset used for Figure 1a:
+1. A single-cross-section dataset (used for Figure 1a):
    - `Data/single_cross_section.TPS`
    - `Data/single_cross_section.csv`
 
@@ -84,7 +84,7 @@ Roundness and circularity metrics calculated using ImageJ are imported from `Dat
 
 ### Statistical testing and variability plots
 
-The script evaluates whether variability differs among wares using a combination of Levene’s tests (variance homogeneity), ANOVA and Welch one-way tests, pairwise t-tests (Bonferroni-adjusted), and pairwise permutation tests for variance ratios. It also generates density plots to visualise variability across groups, which ara saved to `Figures/Table_4/` (multiple `.png` files). 
+The script evaluates whether variability differs among wares using a combination of Levene’s tests (variance homogeneity), ANOVA and Welch one-way tests, pairwise t-tests (Bonferroni-adjusted), and pairwise permutation tests for variance ratios. It also generates density plots to visualise variability across groups, which ara saved to `Figures/Table_S8/` (multiple `.png` files). 
 
 Some of these density plots rely on distance-to-centroid outputs produced by the GMM workflow, imported from `Scripts/EFA_output.csv`
 
@@ -104,7 +104,7 @@ The `Figures/` directory contains all figures included in the manuscript:
 - Figures generated directly by the R scripts (saved as `.png` and `.pdf`)
 - Figures prepared by other methods but included in the manuscript
 
-`Figures/Table_4/` contains the supplementary variability plots generated in R (e.g., density plots referenced in Table 4).
+`Figures/Table_S8/` contains the density plots referenced in OSM2, Table S8.
 
 ---
 
