@@ -366,7 +366,7 @@ wall_thickness_results
 
 #-------------------------------Density plots-----------------------------------
 
-## All figures produced in this section are included in Table_4
+## All figures produced in this section are included in Table_S8
 
 # Load necessary library
 library(ggplot2)
@@ -418,7 +418,7 @@ group_distance_density_plot <- ggplot(DGroup_three, aes(x = Distance, fill = war
   scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
   scale_x_continuous(expand = expansion(mult = c(0, 0.05))) 
 
-png(filename = "./Figures/Table_4/group_distance_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table_S8/group_distance_density_plot.png", width = 1600, height = 1200, res=300)
 plot(group_distance_density_plot) 
 dev.off()
 
@@ -446,7 +446,7 @@ Circ_density_plot <- ggplot(wall_thickness, aes(x = circ, fill = ware)) +
   scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
   scale_x_continuous(expand = expansion(mult = c(0, 0.05))) 
 
-png(filename = "./Figures/Table_4/Circ_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table_S8/Circ_density_plot.png", width = 1600, height = 1200, res=300)
 plot(Circ_density_plot)
 dev.off()
 
@@ -474,7 +474,7 @@ Round_density_plot <- ggplot(wall_thickness, aes(x = Round, fill = ware)) +
   scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
   scale_x_continuous(expand = expansion(mult = c(0, 0.05))) 
 
-png(filename = "./Figures/Table_4/Round_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table_S8/Round_density_plot.png", width = 1600, height = 1200, res=300)
 plot(Round_density_plot)
 dev.off()
 
@@ -503,7 +503,7 @@ CVhthickness_density_plot <- ggplot(wall_thickness, aes(x = CV_horizontal_wall_t
   scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
   scale_x_continuous(expand = expansion(mult = c(0, 0.05))) 
 
-png(filename = "./Figures/Table_4/CVhthickness_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table_S8/CVhthickness_density_plot.png", width = 1600, height = 1200, res=300)
 plot(CVhthickness_density_plot)
 dev.off()
 
@@ -601,7 +601,7 @@ group_distance_range_density_plot <- ggplot(DGroup_three, aes(x = Distance, fill
   scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
   scale_x_continuous(expand = expansion(mult = c(0, 0.05))) 
 
-png(filename = "./Figures/Table_4/distance_range_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table_S8/distance_range_density_plot.png", width = 1600, height = 1200, res=300)
 plot(group_distance_range_density_plot)
 dev.off()
 
@@ -641,7 +641,7 @@ mhthickness_density_plot <- ggplot(wall_thickness, aes(x = mean_horizontal_wall_
   scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
   scale_x_continuous(expand = expansion(mult = c(0, 0.05))) 
 
-png(filename = "./Figures/Table_4/mhthickness_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table_S8/mhthickness_density_plot.png", width = 1600, height = 1200, res=300)
 plot(mhthickness_density_plot)
 dev.off()
 
@@ -680,7 +680,7 @@ Circ_range_density_plot <- ggplot(wall_thickness, aes(x = circ, fill = ware)) +
   scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
   scale_x_continuous(expand = expansion(mult = c(0, 0.05))) 
 
-png(filename = "./Figures/Table_4/Circ_range_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table_S8/Circ_range_density_plot.png", width = 1600, height = 1200, res=300)
 plot(Circ_range_density_plot)
 dev.off()
 
@@ -720,7 +720,7 @@ Round_range_density_plot <- ggplot(wall_thickness, aes(x = Round, fill = ware)) 
   scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
   scale_x_continuous(expand = expansion(mult = c(0, 0.05))) 
 
-png(filename = "./Figures/Table_4/Round_range_density_plot.png", width = 1600, height = 1200, res=300)
+png(filename = "./Figures/Table_S8/Round_range_density_plot.png", width = 1600, height = 1200, res=300)
 plot(Round_range_density_plot)
 dev.off()
 
