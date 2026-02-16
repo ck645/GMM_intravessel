@@ -20,18 +20,8 @@ The repository is organised into four main directories:
 
 ## Overview of analyses and scripts
 
-This repository includes three main workflows:
+This repository supports three linked workflows that move from (1) evaluating the completeness of digitised cross-sections, (2) analysing outline shape variability using geometric morphometrics (Elliptic Fourier Analysis and PCA) and (3) assessing metric intravessel variability. The scripts are designed so that intermediate outputs can be reused across workflows, and the key figures in the manuscript are reproducible directly from the R code.
 
-1. **Calculation of completeness of individual cross-sections**
-2. **GMM (outline-based) intravessel variation**
-3. **Metric intravessel variation**
-
-
-## Overview
-
-This repository supports three linked workflows that move from (1) evaluating the completeness of digitised cross-sections, to (2) assessing metric intravessel variability, and (3) analysing outline shape variability using geometric morphometrics (Elliptic Fourier Analysis and PCA). The scripts are designed so that intermediate outputs (e.g., completeness estimates and EFA coefficient tables) can be reused across workflows, and the key figures in the manuscript are reproducible directly from the R code.
-
----
 
 ## 1: Calculation of completeness of individual cross-sections
 
@@ -41,7 +31,6 @@ Each image is converted to a raster and the script counts pixels classified as *
 
 This output is later used in the GMM workflow to filter cross-sections by preservation quality (e.g., retaining only outlines >99% complete).
 
----
 
 ## 2: GMM intravessel variation (outline-based shape analysis)
 
@@ -74,7 +63,6 @@ Finally, the script explores intravessel shape variation by selecting a set of r
 - `Figures/Figure7e.png` – `CA230715`
 - `Figures/Figure7f.png` – `CA230335`
 
----
 
 ## 3: Metric intravessel variation
 
@@ -104,7 +92,7 @@ The `Figures/` directory contains all figures included in the manuscript:
 - Figures generated directly by the R scripts (saved as `.png` and `.pdf`)
 - Figures prepared by other methods but included in the manuscript
 
-`Figures/Table_S8/` contains the density plots referenced in OSM2, Table S8.
+`Figures/Table_S8/` contains the density plots referenced in Table S8.
 
 ---
 
