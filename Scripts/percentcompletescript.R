@@ -96,4 +96,7 @@ write.csv(combined_results, "./Scripts/color_counts_combined.csv", row.names = F
 
 
 
+# ------------------------------- citation -------------------------------------
 
+citation("magick")
+citation("raster")

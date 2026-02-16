@@ -8,7 +8,6 @@
 library(rio)
 library(tidyverse)
 library(ggplot2)
-library(RColorBrewer)
 library(ggbeeswarm)
 library(ggdist)
 library(gghalves)
