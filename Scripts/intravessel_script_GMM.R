@@ -9,7 +9,6 @@ library(Momocs)
 library(rio)
 library(tidyverse)
 library(ggplot2)
-library(RColorBrewer)
 library(vegan)
 library(dplyr)
 library(tidyr)
@@ -248,10 +247,6 @@ dev.off()
 pcashape_99 <- PCA(efashape_99)
 pcashape_99_30 <- PCA(efashape_99_30)
 
-scree(pcashape_99)
-
-scree(pcashape_99_30)
-
 
 #plot our vessels within a morphospace representative of these PCs:  
 
@@ -273,13 +268,6 @@ plot_PCA(pcashape_99_30, axes = c(1,2), over_99$Vessel,
          center_origin = FALSE,
          title = "PC 1 vs PC 2 considering cross-sections >99% preserved")%>% layer_ellipses(conf = 0.9)
 dev.off()
-
-
-#examine differences in PC contributions by vessel or ware
-
-boxplot_99 <- boxplot(pcashape_99_30, over_99$ware, nax = 1:7)
-boxplot_99 + scale_fill_brewer(palette = "Dark2") + 
-  ggtitle("PC contribution sections which are > 99% complete")
 
 
 #Export the EFA as txt
@@ -457,44 +445,44 @@ scree(pcashape_CA230417)
 scree(pcashape_CA230347)
 scree(pcashape_CA230715)
 
-png(filename = "./Figures/Figure7a.png", width = 2400, height = 1600, res=300)
+png(filename = "./Figures/Figure7a.png", width = 1600, height = 1200, res=300)
 plot_PCA(pcashape_CA230365, axes = c(1,2), CA230365$Vessel, palette = pal_manual(c("#1B9E77")), legend = FALSE,
-         morphospace_position = "range", zoom = 0.8, chull = FALSE, center_origin = FALSE,
+         morphospace_position = "range", zoom = 0.75, chull = FALSE, center_origin = FALSE,
          title = "CA230365") %>% 
   layer_points(cex = 1)
 dev.off()
 
-png(filename = "./Figures/Figure7b.png", width = 2400, height = 1600, res=300)
+png(filename = "./Figures/Figure7b.png", width = 1600, height = 1200, res=300)
 plot_PCA(pcashape_CA230377, axes = c(1,2), CA230377$Vessel, palette = pal_manual(c("#1B9E77")), legend = FALSE,
-         morphospace_position = "range", zoom = 0.8, chull = FALSE, center_origin = FALSE,
+         morphospace_position = "range", zoom = 0.65, chull = FALSE, center_origin = FALSE,
          title = "CA230377") %>% 
   layer_points(cex = 1)
 dev.off()
 
-png(filename = "./Figures/Figure7c.png", width = 2400, height = 1600, res=300)
+png(filename = "./Figures/Figure7c.png", width = 1600, height = 1200, res=300)
 plot_PCA(pcashape_CA230417, axes = c(1,2), CA230417$Vessel, palette = pal_manual(c("#E6AB02")), legend = FALSE,
-         morphospace_position = "range", zoom = 0.8, chull = FALSE, center_origin = FALSE,
+         morphospace_position = "range", zoom = 0.75, chull = FALSE, center_origin = FALSE,
          title = "CA230417") %>% 
   layer_points(cex = 1)
 dev.off()
 
-png(filename = "./Figures/Figure7d.png", width = 2400, height = 1600, res=300)
+png(filename = "./Figures/Figure7d.png", width = 1600, height = 1200, res=300)
 plot_PCA(pcashape_CA230347, axes = c(1,2), CA230347$Vessel, palette = pal_manual(c("#8D62C1")), legend = FALSE,
-         morphospace_position = "range", zoom = 0.8, chull = FALSE, center_origin = FALSE,
+         morphospace_position = "range", zoom = 0.75, chull = FALSE, center_origin = FALSE,
          title = "CA230347") %>% 
   layer_points(cex = 1)
 dev.off()
 
-png(filename = "./Figures/Figure7e.png", width = 2400, height = 1600, res=300)
+png(filename = "./Figures/Figure7e.png", width = 1600, height = 1200, res=300)
 plot_PCA(pcashape_CA230715, axes = c(1,2), CA230715$Vessel, palette = pal_manual(c("#D95f02")), legend = FALSE,
-         morphospace_position = "range", zoom = 0.8, chull = FALSE, center_origin = FALSE,
+         morphospace_position = "range", zoom = 0.75, chull = FALSE, center_origin = FALSE,
          title = "CA230715") %>% 
   layer_points(cex = 1)
 dev.off()
 
-png(filename = "./Figures/Figure7f.png", width = 2400, height = 1600, res=300)
+png(filename = "./Figures/Figure7f.png", width = 1600, height = 1200, res=300)
 plot_PCA(pcashape_CA230335, axes = c(1,2), CA230335$Vessel, palette = pal_manual(c("#D95F02")), legend = FALSE,
-         morphospace_position = "range", zoom = 0.8, chull = FALSE, center_origin = FALSE,
+         morphospace_position = "range", zoom = 0.6, chull = FALSE, center_origin = FALSE,
          title = "CA230335") %>% 
   layer_points(cex = 1)
 dev.off()
